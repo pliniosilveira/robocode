@@ -14,8 +14,7 @@ public class Tico extends TeamRobot
 {
 
 	private Random rnd = new Random(42);
-	private Hashtable<String, ScannedRobotEvent> enemies = new Hashtable<String, ScannedRobotEvent>();
-	private double movementDirection = 1;
+	//private Hashtable<String, ScannedRobotEvent> enemies = new Hashtable<String, ScannedRobotEvent>();
 
 	/**
 	 * run: Tico's default behavior
@@ -23,17 +22,9 @@ public class Tico extends TeamRobot
 	public void run() {
 		// Initialization of the robot should be put here
 		
-		boolean way = false;
-		double r;
-		double turned = 0;
-
-		// After trying out your robot, try uncommenting the import at the top,
-		// and the next line:
-
 		setColors(Color.blue,Color.white,Color.red); // body,gun,radar
 		setAdjustRadarForGunTurn(false);
 
-		//turnRadarRightRadians(Double.POSITIVE_INFINITY);
 		// Robot main loop
 		while(true) {
 			turnRadarRightRadians(Double.POSITIVE_INFINITY);
@@ -54,11 +45,11 @@ public class Tico extends TeamRobot
 		String enemy_name = e.getName();
 		if (isTeammate(enemy_name)) return;
 		
-		ScannedRobotEvent old_e = e;
+		/*ScannedRobotEvent old_e = e;
 		if ( !this.enemies.containsKey(enemy_name) ) {
 			old_e = this.enemies.get(enemy_name);
 		}
-		this.enemies.put(enemy_name, e);
+		this.enemies.put(enemy_name, e);*/
 		
 		double radarTurn = getHeadingRadians() + e.getBearingRadians()
 	        - getRadarHeadingRadians();
@@ -70,11 +61,6 @@ public class Tico extends TeamRobot
 		out.println("gun turn " + gunTurn);
 		setTurnGunRightRadians(1.1*Utils.normalRelativeAngle(gunTurn));
 
-/*		double gunTurn = getHeading() + e.getBearing()
-	        - getGunHeading();
-		out.println("gun turn "+gunTurn);
-		setTurnGunRight(gunTurn);*/
-
 		if (e.getDistance() < 400){
 			out.println("Fire! ");
 			fire(Rules.MAX_BULLET_POWER - e.getDistance()/200);
@@ -82,15 +68,6 @@ public class Tico extends TeamRobot
 			setTurnRight(e.getBearing());
 			ahead(e.getDistance()/2);
 		}
-		
-		if(e.getDistance() > 200)
-			movementDirection = -1;
-		else
-			movementDirection = -1;
-		//setTurnRight(e.getBearing()+90-30*movementDirection);
-		double r = 5+(double)rnd.nextInt(45);
-//		ahead(r*movementDirection);
-		//setTurnLeft(e.getBearing()+90-30*movementDirection);
 
 	}
 
